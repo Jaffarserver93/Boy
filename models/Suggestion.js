@@ -46,6 +46,11 @@ const suggestionSchema = new mongoose.Schema({
         type: String,
         enum: ['Pending', 'Accepted', 'Denied'],
         default: 'Pending',
+    },
+    modalData: {
+        type: Map,
+        of: String,
+        default: {}
     }
 });
 

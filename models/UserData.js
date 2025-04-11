@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const CommandDataSchema = new mongoose.Schema({
     lastDaily: { type: Date, default: null },
+    dailyStreak: { type: Number, default: 0 },
     lastBeg: { type: Date, default: null },
     lastWork: { type: Date, default: null },
     lastCrime: { type: Date, default: null },
@@ -33,10 +34,10 @@ const TransactionLogSchema = new mongoose.Schema({
 }, { _id: false });
 
 const UserSchema = new mongoose.Schema({
-    userId: { type: String, required: true },
-    guildId: { type: String, required: true },
-    xp: { type: Number, default: 0 },
-    level: { type: Number, default: 0 },
+    userId: { type: String, required: true, index: true },
+    guildId: { type: String, required: true, index: true },
+    xp: { type: Number, default: 0, index: true },
+    level: { type: Number, default: 0, index: true },
     warns: { type: Number, default: 0 },
     bans: { type: Number, default: 0 },
     kicks: { type: Number, default: 0 },
@@ -48,7 +49,6 @@ const UserSchema = new mongoose.Schema({
         moderatorId: { type: String, default: '' }
     }],
     totalMessages: { type: Number, default: 0 },
-    birthday: Date,
     messages: [{
         content: { type: String, required: false },
         timeSent: { type: Number, default: Date.now }
@@ -59,8 +59,8 @@ const UserSchema = new mongoose.Schema({
         moderatorId: { type: String, default: '' },
         lifted: { type: Boolean, default: false }
     }],
-    balance: { type: Number, default: 0 },
-    bank: { type: Number, default: 0 },
+    balance: { type: Number, default: 0, index: true },
+    bank: { type: Number, default: 0, index: true },
     inventory: [InventoryItemSchema],
     boosters: [BoosterSchema],
     commandData: { type: CommandDataSchema, default: () => ({}) },
@@ -70,7 +70,11 @@ const UserSchema = new mongoose.Schema({
         itemId: { type: String, required: true },
         quantity: { type: Number, default: 0 }
     }],
-    transactionLogs: [TransactionLogSchema]
+    transactionLogs: [TransactionLogSchema],
+    roles: [{ type: String }]
 });
+
+UserSchema.index({ userId: 1, guildId: 1 });
+UserSchema.index({ level: 1, xp: -1 });
 
 module.exports = mongoose.model('UserData', UserSchema);

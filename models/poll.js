@@ -18,13 +18,16 @@ const pollSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    upvotes: {
-        type: Number,
-        default: 0
-    },
-    downvotes: {
-        type: Number,
-        default: 0
+    choices: [
+        {
+            name: { type: String, required: true },
+            votes: { type: Number, default: 0 },
+            emoji: { type: String, required: true }
+        }
+    ],
+    multiVote: {
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,

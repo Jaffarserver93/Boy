@@ -5,7 +5,6 @@ const guildDataSchema = new mongoose.Schema({
     cases: { type: Number, default: 0 },
     totalMessages: { type: Number, default: 0 },
     stars: { type: Object, default: {} },
-    birthday: { type: Date, default: Date.now },
     totalSuggestions: { type: Number, default: 0 },
     timesBotStarted: { type: Number, default: 0 },
     members: { type: [String], default: [] },

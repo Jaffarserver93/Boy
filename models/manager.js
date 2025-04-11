@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const fs = require('fs');
 const yaml = require("js-yaml");
-const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 const colors = require('ansi-colors');
+const config = yaml.load(fs.readFileSync('./config.yml', 'utf8'));
 
 const connectToMongoDB = async () => {
     const maxRetries = 5;
@@ -11,18 +11,19 @@ const connectToMongoDB = async () => {
     while (retries < maxRetries) {
         try {
             if (config.mongoURI) {
-                await mongoose.set('strictQuery', false);
                 await mongoose.connect(config.mongoURI, {
-                    serverSelectionTimeoutMS: 5000
+                    serverSelectionTimeoutMS: 15000,
+                    socketTimeoutMS: 45000
                 });
-                console.log(colors.green('Connected to MongoDB successfully!'));
-                break;
+
+                console.log(colors.green('[✓] Connected to MongoDB successfully!'));
+                return;
             } else {
                 throw new Error('MongoDB Connection String is not specified in the config! (MongoURI)');
             }
         } catch (error) {
             if (error.message.includes('authentication failed')) {
-                console.error(colors.red.bold('Authentication failed: Check your username and password.'));
+                console.error(colors.red.bold('[✗] Authentication failed: Check your username and password.'));
             } else {
                 const errorMsg = `[ERROR] Failed to connect to MongoDB: ${error.message}\n${error.stack}`;
                 console.error(colors.red.bold(errorMsg));
