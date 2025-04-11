@@ -6,12 +6,12 @@
 # BOT INFORMATION
 Version: "1.8.0" # Don't change this!
 BotToken: "BOT_TOKEN" # If you need help getting your BotToken please open a ticket here: http://discord.drakodevelopment.net
-mongoURI: "MONGO_URI"
-GuildID: "GUILD_ID" # This is your server's ID, Right click on your server icon and copy ID
+mongoURI: "mongodb+srv://devil777:HcA_6rQA_9zU8kZ@cluster0.wbrlx17.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+GuildID: "1100668230613344257" # This is your server's ID, Right click on your server icon and copy ID
 BotName: "Drako Bot"
 LogCommands: false
 Statistics: true # Show statistics in terminal when the bot starts? (This does not affect the stats command or anything else)
-Timezone: "America/New_York" # Use https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a 
+Timezone: "Asia/Kolkata" # Use https://gist.github.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a 
 
 EmbedColors: "#1769FF"
 SuccessEmbedColor: "#2ecc71"
